@@ -1,24 +1,26 @@
 ---
-title: "Untitled"
-format: revealjs
-editor: visual
+title: A title
+subtitle: A subtitle
+format:
+  revealjs: 
+    theme: simple
+author:
+  - name: Thiyanga S. Talagala
+    email: 
+    affiliations: University of Sri Jayewardenepura, Sri Lanka
+date: last-modified
 ---
 
-## Quarto
+## Background of the Study
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+- Vegetables are a key component of daily diet in Sri Lanka.
 
-## Bullets
+- Vegetable price differences are not random. 
 
-When you click the **Render** button a document will be generated that includes:
-
-- Content authored with markdown
-- Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
+- Vegetable prices fluctuate frequently due to:
+    
+    - Seasonal production patterns
+    
+    - Weather conditions
+    
+    - Supply chain disruptions

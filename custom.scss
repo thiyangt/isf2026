@@ -1,0 +1,45 @@
+/*-- scss:defaults --*/
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+// Base typography
+$font-family-sans-serif: "Lato", sans-serif !default;
+$presentation-heading-font: "News Cycle", sans-serif !default;
+
+// Colors
+$body-bg: #f0f1eb !default;
+$body-color: #000 !default;
+$link-color: #51483d !default;
+$selection-bg: #26351c !default;
+$presentation-heading-color: #383d3d !default;
+
+// Optional overlay colors
+$overlayElementBgColor: 0, 0, 0 !default;
+$overlayElementFgColor: 240, 240, 240 !default;
+
+// Dark slide text fallback
+$dark-bg-text-color: #fff !default;
+
+// Title slide background variable
+$title-slide-bg: #26351c !default;
+
+/*-- scss:rules --*/
+
+// IMPORTANT: Reveal uses slide-background layer for title slide
+.reveal .slide-background.title {
+  background-color: $title-slide-bg !important;
+}
+
+// Title slide content styling
+.reveal .slides section.title-slide {
+  color: #ffffff;
+}
+
+// Optional: improve contrast for title text
+.reveal .slides section.title-slide h1,
+.reveal .slides section.title-slide h2,
+.reveal .slides section.title-slide p {
+  color: #ffffff;
+}
