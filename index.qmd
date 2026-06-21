@@ -1,5 +1,5 @@
 ---
-title: A title
+title: Vegetable
 subtitle: A subtitle
 format:
   revealjs: 
@@ -10,6 +10,8 @@ author:
     affiliations: University of Sri Jayewardenepura, Sri Lanka
 date: last-modified
 ---
+
+## Markets
 
 ## Background of the Study
 
@@ -24,3 +26,16 @@ date: last-modified
     - Weather conditions
     
     - Supply chain disruptions
+    
+## Study Locations
+
+## High Vegetable Grown Districts
+
+## Pettah and Dambulla Markets
+
+## Data
+
+## Exploratory Data Analysis
+
+## 
+
