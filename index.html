@@ -10,8 +10,7 @@
   <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Thiyanga S. Talagala">
-  <meta name="dcterms.date" content="2026-06-20">
-  <title>Vegetable</title>
+  <title>Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -32,8 +31,74 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -130,9 +195,9 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Vegetable</h1>
-  <p class="subtitle">A subtitle</p>
+<section id="title-slide" data-background-color="#004529" data-background-image="none" class="quarto-title-block center">
+  <h1 class="title">Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting</h1>
+  <p class="subtitle">International Symposium on Forecasting, 2026</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -140,48 +205,220 @@
 Thiyanga S. Talagala 
 </div>
         <p class="quarto-title-affiliation">
-            University of Sri Jayewardenepura, Sri Lanka
+            Department of Statistics, University of Sri Jayewardenepura, Sri Lanka
           </p>
     </div>
 </div>
 
-  <p class="date">2026-06-20</p>
 </section>
-<section id="markets" class="slide level2">
-<h2>Markets</h2>
+<section>
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+
 </section>
-<section id="background-of-the-study" class="slide level2">
-<h2>Background of the Study</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<h3 id="vegetable-production-levels-by-district">Vegetable Production Levels by District</h3>
+</div>
+</div></section>
+<section>
+<section id="section-1" class="title-slide slide level1 center">
+<h1></h1>
+
+</section>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" style="height:100.0%" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<h3 id="two-major-economic-centres">Two Major Economic Centres</h3>
 <ul>
-<li><p>Vegetables are a key component of daily diet in Sri Lanka.</p></li>
-<li><p>Vegetable price differences are not random.</p></li>
-<li><p>Vegetable prices fluctuate frequently due to:</p>
+<li><p>Dambulla Market</p>
 <ul>
-<li><p>Seasonal production patterns</p></li>
-<li><p>Weather conditions</p></li>
-<li><p>Supply chain disruptions</p></li>
+<li>Mainly a supply market.</li>
 </ul></li>
+<li><p>Pettah Market</p>
+<ul>
+<li>Mainly a demand/retail market.</li>
+</ul></li>
+<li><p>These two markets serve as key distribution hubs for vegetables across the country.</p></li>
 </ul>
-</section>
-<section id="study-locations" class="slide level2">
-<h2>Study Locations</h2>
-</section>
-<section id="high-vegetable-grown-districts" class="slide level2">
-<h2>High Vegetable Grown Districts</h2>
-</section>
-<section id="pettah-and-dambulla-markets" class="slide level2">
-<h2>Pettah and Dambulla Markets</h2>
+</div>
+</div></section>
+<section>
+<section id="to-forecast-retail-and-wholesale-vegetable-prices-for-these-two-major-economic-centres-in-sri-lanka-dambulla-and-pettah" class="title-slide slide level1 center">
+<h1>To forecast retail and wholesale vegetable prices for these two major economic centres in Sri Lanka — Dambulla and Pettah</h1>
+
 </section>
 <section id="data" class="slide level2">
 <h2>Data</h2>
+<p>Daily price reports published by the Central Bank of Sri Lanka (CBSL)</p>
 </section>
-<section id="exploratory-data-analysis" class="slide level2">
-<h2>Exploratory Data Analysis</h2>
+<section id="a-sample-daily-price-report" class="slide level2">
+<h2>A Sample Daily Price Report</h2>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
+<section id="r-package-for-web-scrapping-data-from-daily-price-reports" class="slide level2">
+<h2>R package for Web Scrapping Data From Daily Price Reports</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># install.packages("pak")</span></span>
+<span id="cb1-2"><a href=""></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"thiyangt/vegscraper"</span>)</span>
+<span id="cb1-3"><a href=""></a>vegscraper<span class="sc">::</span><span class="fu">run_app</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="r-package-for-tidy-data" class="slide level2">
+<h2>R Package for Tidy Data</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"vegetablesSriLanka"</span>)</span>
+<span id="cb2-2"><a href=""></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"thiyangt/vegetablesSriLanka"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(vegetablesSriLanka)</span>
+<span id="cb3-2"><a href=""></a><span class="fu">data</span>(<span class="st">"vegetables.srilanka"</span>)</span>
+<span id="cb3-3"><a href=""></a>vegetables.srilanka</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 125,576 × 5
+   Date       Item  Type   Market   Price
+   &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;
+ 1 2016-08-01 Beans Retail Dambulla   165
+ 2 2016-08-02 Beans Retail Dambulla   190
+ 3 2016-08-03 Beans Retail Dambulla   190
+ 4 2016-08-04 Beans Retail Dambulla   190
+ 5 2016-08-05 Beans Retail Dambulla   190
+ 6 2016-08-08 Beans Retail Dambulla   190
+ 7 2016-08-09 Beans Retail Dambulla   175
+ 8 2016-08-10 Beans Retail Dambulla   190
+ 9 2016-08-11 Beans Retail Dambulla   190
+10 2016-08-12 Beans Retail Dambulla   175
+# ℹ 125,566 more rows</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="vegetables-included-in-the-analysis" class="slide level2">
+<h2>Vegetables Included in the Analysis</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Beans"             "Big Onion (Imp)"   "Big Onion (Local)"
+ [4] "Brinjal"           "Cabbage"           "Carrot"           
+ [7] "Green Chilli"      "Lime"              "Potato (Imp)"     
+[10] "Potato (Local)"    "Pumpkin"           "Red Onion (Imp)"  
+[13] "Red Onion (Local)" "Snake gourd"       "Tomato"           </code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="pre-processing-and-exploratory-data-analysis" class="title-slide slide level1 center">
+<h1>Pre-processing and Exploratory Data Analysis</h1>
 
 </section>
+<section id="local-view-of-data" class="slide level2">
+<h2>Local View of Data</h2>
+<p><a href="https://thiyangt.github.io/vegetableBook/">https://thiyangt.github.io/vegetableBook/</a></p>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+</section>
+<section id="global-view-of-data-visualisation-of-time-series-in-a-feature-space" class="slide level2">
+<h2>Global view of data: Visualisation of Time Series in a Feature-Space</h2>
+</section></section>
+<section>
+<section id="forecasting" class="title-slide slide level1 center">
+<h1>Forecasting</h1>
+
+</section>
+<section id="benchmark-approaches" class="slide level2">
+<h2>Benchmark Approaches</h2>
+<ul>
+<li><p>Naive</p></li>
+<li><p>Snaive</p></li>
+<li><p>SARIMA</p></li>
+<li><p>ETS</p></li>
+<li><p>STL-ETS: STL decomposition is applied to separate trend and seasonal components. Then, ETS is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend.</p></li>
+<li><p>STL-ARIMA: STL decomposition is applied to separate trend and seasonal components. Then, ARIMA is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend.</p></li>
+</ul>
+</section></section>
+<section>
+<section id="retrieval-augmented-feature-based-random-forest-raf-rf" class="title-slide slide level1 center">
+<h1>Retrieval-Augmented Feature-Based Random Forest (RAF-RF)</h1>
+
+</section>
+<section id="raf-rf-package" class="slide level2">
+<h2>RAF-RF: Package</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># install.packages("pak")</span></span>
+<span id="cb6-2"><a href=""></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"thiyangt/vegcast"</span>)</span>
+<span id="cb6-3"><a href=""></a><span class="fu">library</span>(vegcast)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="feature-classes-and-features" class="title-slide slide level1 center">
+<h1>Feature Classes and Features</h1>
+
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Time Features</strong></p>
+<ul>
+<li>Day, Year, Month, Week</li>
+</ul>
+<p><strong>Lag Features</strong></p>
+<ul>
+<li>lag7, lag14, lag30, lag365</li>
+</ul>
+<p><strong>PCA Features</strong></p>
+<ul>
+<li>First two PCs computed from lag features</li>
+</ul>
+<p><strong>Compute Past 30 window values</strong></p>
+<ul>
+<li>Past 30 window values</li>
+</ul>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:40%;">
+<p><strong>Features based on past 30 window values</strong></p>
+<ul>
+<li>Minimum, maximum, median, Q1, Q3, Standarad Deviation</li>
+</ul>
+<p><strong>Fourier terms</strong></p>
+<ul>
+<li><code>sin_week = sin(2 * pi * t / 7)</code>, <code>cos_week = cos(2 * pi * t / 7)</code>, <code>sin_year = sin(2 * pi * t / 365)</code>, <code>cos_year = cos(2 * pi * t / 365)</code></li>
+</ul>
+</div></div>
+</section>
+<section id="model-fitting" class="slide level2">
+<h2>Model Fitting</h2>
+<ul>
+<li><p>The following two features are duplicated in the model.</p></li>
+<li><p>Reason: To give higher weight to these features in the model.</p></li>
+<li><p>By doing so, I aim to signal to the model that recent observations carry more importance.</p></li>
+</ul>
+<p><strong>Lag Features</strong></p>
+<ul>
+<li>lag7, lag14, lag30, lag365</li>
+</ul>
+<p><strong>Compute Past 30 window values</strong></p>
+<ul>
+<li>Past 30 window values</li>
+</ul>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -238,7 +475,7 @@ Thiyanga S. Talagala
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -363,9 +600,9 @@ Thiyanga S. Talagala
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1280,
 
-        height: 700,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -397,6 +634,44 @@ Thiyanga S. Talagala
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

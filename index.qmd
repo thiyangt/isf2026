@@ -1,41 +1,258 @@
 ---
-title: Vegetable
-subtitle: A subtitle
+title: Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting
 format:
   revealjs: 
-    theme: simple
+    theme: [default]
+    width: 1280
+    height: 720
+    slide-number: true
+    title-slide-attributes: 
+      data-background-color: "#004529"
+      data-background-image: none
 author:
   - name: Thiyanga S. Talagala
     email: 
-    affiliations: University of Sri Jayewardenepura, Sri Lanka
-date: last-modified
+    affiliations: Department of Statistics, University of Sri Jayewardenepura, Sri Lanka
+subtitle: "International Symposium on Forecasting, 2026"
 ---
 
-## Markets
+#
 
-## Background of the Study
+:::: {.columns}
 
-- Vegetables are a key component of daily diet in Sri Lanka.
+::: {.column width="60%"}
 
-- Vegetable price differences are not random. 
+```{r}
+#| echo: false
+#| fig.height: 12
+#| fig.asp: 0.8
+# install.packages("devtools")
+#devtools::install_github("thiyangt/SriLanka")
 
-- Vegetable prices fluctuate frequently due to:
+library(SriLanka)
+library(sf)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+veg_data <- data.frame(
+  NAME_2 = c("Dambulla", "Colombo", "Kandy"),
+  veg_index = c(90, 40, 70)
+)
+
+lka_adm2$veg_level <- factor(case_when(
+  lka_adm2$NAME %in% c("Nuwara Eliya District","Badulla District","Matale District") ~ "High",
+  lka_adm2$NAME %in% c("Kandy District","Kurunegala District","Kegalle District","Ratnapura District") ~ "Moderate",
+  TRUE ~ "Low"
+), levels = c("High", "Moderate", "Low"))
+  
+p1 <- ggplot(lka_adm2) +
+  geom_sf(aes(fill = veg_level), color = "white") +
+  scale_fill_manual(values = c("High" = "green3", Moderate = "#b2df8a", Low = "grey80")) +
+  theme_minimal() +
+  labs(fill = "Vegetable Production Level")
+p1 
+```
+:::
+
+::: {.column width="40%"}
+### Vegetable Production Levels by District 
+:::
+
+::::
+
+#
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| out.height: "100%"
+#| fig.asp: 0.8
+# install.packages("devtools")
+#devtools::install_github("thiyangt/SriLanka")
+
+library(SriLanka)
+library(sf)
+library(ggplot2)
+library(dplyr)
+markets <- data.frame(
+  name = c("Pettah \n Market", "Dambulla Market"),
+  lon = c(79.8612, 80.6517),
+  lat = c(6.9395, 7.8742)
+)
+p1  +
+  geom_point(
+    data = markets,
+    aes(x = lon, y = lat),
+    color = "red",
+    size = 5
+  ) +
+  geom_text(
+    data = markets,
+    aes(x = lon, y = lat, label = name),
+    nudge_y = 0.2,
+    size = 5
+  ) +
+  theme_minimal()
+```
+:::
+
+::: {.column width="40%"}
+### Two Major Economic Centres
+
+- Dambulla Market
+
+    - Mainly a supply market.
+
+- Pettah Market
+
+    - Mainly a demand/retail market.
     
-    - Seasonal production patterns
-    
-    - Weather conditions
-    
-    - Supply chain disruptions
-    
-## Study Locations
+- These two markets serve as
+key distribution hubs for vegetables across the country.
 
-## High Vegetable Grown Districts
 
-## Pettah and Dambulla Markets
 
-## Data
+:::
 
-## Exploratory Data Analysis
+::::
+
+# To forecast retail and wholesale vegetable prices for these two major economic centres in Sri Lanka — Dambulla and Pettah
+
+## Data 
+
+Daily price reports published by the Central Bank of Sri Lanka (CBSL)
+
+## A Sample Daily Price Report
+
+## R package for Web Scrapping Data From Daily Price Reports
+
+```r
+# install.packages("pak")
+pak::pak("thiyangt/vegscraper")
+vegscraper::run_app()
+```
+
+## R Package for Tidy Data
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```r
+install.packages("vegetablesSriLanka")
+pak::pak("thiyangt/vegetablesSriLanka")
+```
+
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+library(vegetablesSriLanka)
+data("vegetables.srilanka")
+vegetables.srilanka
+```
+
+
+:::
+
+::::
+
+## Vegetables Included in the Analysis
+
+```{r}
+unique(vegetables.srilanka$Item) 
+```
+# Pre-processing and Exploratory Data Analysis
+
+## Local View of Data
+
+[https://thiyangt.github.io/vegetableBook/](https://thiyangt.github.io/vegetableBook/)
 
 ## 
 
+## Global view of data: Visualisation of Time Series in a Feature-Space
+
+# Forecasting
+
+## Benchmark Approaches
+
+- Naive
+
+- Snaive
+
+- SARIMA
+
+- ETS
+
+- STL-ETS: STL decomposition is applied to separate trend and seasonal components. Then, ETS is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend.
+
+- STL-ARIMA: STL decomposition is applied to separate trend and seasonal components. Then, ARIMA is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend.
+
+# Retrieval-Augmented Feature-Based Random Forest (RAF-RF)
+
+## RAF-RF: Package
+
+``` r
+# install.packages("pak")
+pak::pak("thiyangt/vegcast")
+library(vegcast)
+```
+
+# Feature Classes and Features
+
+## 
+
+:::::: columns
+::: {.column width="50%"}
+**Time Features**
+
+- Day, Year, Month, Week
+
+**Lag Features**
+
+- lag7, lag14, lag30, lag365
+
+**PCA Features**
+
+- First two PCs computed from lag features
+
+**Compute Past 30 window values**
+
+- Past 30 window values
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%"}
+**Features based on past 30 window values**
+
+- Minimum, maximum, median, Q1, Q3, Standarad Deviation
+
+**Fourier terms**
+
+- `sin_week = sin(2 * pi * t / 7)`, `cos_week = cos(2 * pi * t / 7)`, `sin_year = sin(2 * pi * t / 365)`, `cos_year = cos(2 * pi * t / 365)`
+:::
+::::::
+
+## Model Fitting
+
+- The following two features are duplicated in the model.
+
+- Reason: To give higher weight to these features in the model.
+
+- By doing so, I aim to signal to the model that recent observations carry more importance.
+
+**Lag Features**
+
+- lag7, lag14, lag30, lag365
+
+**Compute Past 30 window values**
+
+- Past 30 window values
