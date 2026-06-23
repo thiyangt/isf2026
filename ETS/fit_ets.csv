@@ -1,0 +1,61 @@
+"","Item","Type","Market","ETS_model"
+"1","Beans","Retail","Dambulla",<ETS(M,A,N)>
+"2","Beans","Retail","Pettah",<ETS(M,N,M)>
+"3","Beans","Wholesale","Dambulla",<ETS(M,A,N)>
+"4","Beans","Wholesale","Pettah",<ETS(M,A,N)>
+"5","Big Onion (Imp)","Retail","Dambulla",<ETS(M,N,A)>
+"6","Big Onion (Imp)","Retail","Pettah",<ETS(M,N,A)>
+"7","Big Onion (Imp)","Wholesale","Dambulla",<ETS(M,N,M)>
+"8","Big Onion (Imp)","Wholesale","Pettah",<ETS(M,N,A)>
+"9","Brinjal","Retail","Dambulla",<ETS(M,A,N)>
+"10","Brinjal","Retail","Pettah",<ETS(M,A,N)>
+"11","Brinjal","Wholesale","Dambulla",<ETS(M,A,N)>
+"12","Brinjal","Wholesale","Pettah",<ETS(M,A,N)>
+"13","Cabbage","Retail","Dambulla",<ETS(M,N,A)>
+"14","Cabbage","Retail","Pettah",<ETS(M,A,N)>
+"15","Cabbage","Wholesale","Dambulla",<ETS(M,A,M)>
+"16","Cabbage","Wholesale","Pettah",<ETS(M,A,N)>
+"17","Carrot","Retail","Dambulla",<ETS(M,A,A)>
+"18","Carrot","Retail","Pettah",<ETS(M,A,N)>
+"19","Carrot","Wholesale","Dambulla",<ETS(M,N,A)>
+"20","Carrot","Wholesale","Pettah",<ETS(M,A,N)>
+"21","Green Chilli","Retail","Dambulla",<ETS(M,Ad,M)>
+"22","Green Chilli","Retail","Pettah",<ETS(M,A,N)>
+"23","Green Chilli","Wholesale","Dambulla",<ETS(M,N,M)>
+"24","Green Chilli","Wholesale","Pettah",<ETS(M,A,N)>
+"25","Lime","Retail","Dambulla",<ETS(M,A,N)>
+"26","Lime","Retail","Pettah",<ETS(M,N,N)>
+"27","Lime","Wholesale","Dambulla",<ETS(M,A,N)>
+"28","Lime","Wholesale","Pettah",<ETS(M,A,N)>
+"29","Potato (Imp)","Retail","Dambulla",<ETS(M,N,N)>
+"30","Potato (Imp)","Retail","Pettah",<ETS(M,Ad,N)>
+"31","Potato (Imp)","Wholesale","Dambulla",<ETS(M,A,N)>
+"32","Potato (Imp)","Wholesale","Pettah",<ETS(M,A,N)>
+"33","Pumpkin","Retail","Dambulla",<ETS(M,A,N)>
+"34","Pumpkin","Retail","Pettah",<ETS(A,Ad,N)>
+"35","Pumpkin","Wholesale","Dambulla",<ETS(M,A,N)>
+"36","Pumpkin","Wholesale","Pettah",<ETS(M,N,A)>
+"37","Snake gourd","Retail","Dambulla",<ETS(M,A,N)>
+"38","Snake gourd","Retail","Pettah",<ETS(M,N,N)>
+"39","Snake gourd","Wholesale","Dambulla",<ETS(M,A,N)>
+"40","Snake gourd","Wholesale","Pettah",<ETS(M,A,N)>
+"41","Tomato","Retail","Dambulla",<ETS(M,A,N)>
+"42","Tomato","Retail","Pettah",<ETS(M,A,N)>
+"43","Tomato","Wholesale","Dambulla",<ETS(M,A,N)>
+"44","Tomato","Wholesale","Pettah",<ETS(M,A,N)>
+"45","Potato (Local)","Retail","Dambulla",<ETS(M,A,N)>
+"46","Potato (Local)","Retail","Pettah",<ETS(A,N,N)>
+"47","Potato (Local)","Wholesale","Dambulla",<ETS(M,N,M)>
+"48","Potato (Local)","Wholesale","Pettah",<ETS(M,N,N)>
+"49","Big Onion (Local)","Retail","Dambulla",<ETS(A,Ad,N)>
+"50","Big Onion (Local)","Retail","Pettah",<ETS(A,N,N)>
+"51","Big Onion (Local)","Wholesale","Dambulla",<ETS(A,N,N)>
+"52","Big Onion (Local)","Wholesale","Pettah",<ETS(A,Ad,N)>
+"53","Red Onion (Imp)","Retail","Dambulla",<ETS(A,N,N)>
+"54","Red Onion (Imp)","Retail","Pettah",<ETS(A,Ad,N)>
+"55","Red Onion (Imp)","Wholesale","Dambulla",<ETS(A,N,N)>
+"56","Red Onion (Imp)","Wholesale","Pettah",<ETS(A,Ad,N)>
+"57","Red Onion (Local)","Retail","Dambulla",<ETS(M,A,N)>
+"58","Red Onion (Local)","Retail","Pettah",<ETS(A,N,A)>
+"59","Red Onion (Local)","Wholesale","Dambulla",<ETS(M,N,N)>
+"60","Red Onion (Local)","Wholesale","Pettah",<ETS(M,A,N)>

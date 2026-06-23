@@ -23,7 +23,8 @@ library(dplyr)
 library(tidyr)
 library(purrr)
 library(GGally)
-library(ggplot2)
+library(tidytext)
+
 ```
 
 :::: {.columns}
@@ -643,9 +644,104 @@ p3
 
 ::::
 
-## Local View of Data
+## Local View of Data: Beans
 
+```{r}
+library(tsibble)
+library(dplyr)
+library(dygraphs)
+library(xts)
+vegetables_long_tsibble <- vegetables.srilanka |>
+  as_tsibble(key = c(Item, Type, Market),
+    index = Date) 
+veg_filled <- vegetables_long_tsibble |>
+  group_by_key() |>
+  fill_gaps() |>
+  ungroup() |>
+  as_tsibble() |>
+  mutate(Year = year(Date))
+# Filter for a single series
+beans_dambulla <- veg_filled %>%
+  filter(Item == "Beans", Type == "Retail", Market == "Dambulla") %>%
+  select(Date, Price) %>%
+  arrange(Date)  # Ensure chronological order
 
+# Convert to xts
+beans_xts <- xts(beans_dambulla$Price, order.by = beans_dambulla$Date)
+
+# Draw dygraph
+dygraph(beans_xts, main = "Beans Price in Dambulla (Retail)") %>%
+  dyAxis("y", label = "Price (LKR)") %>%
+  dyRangeSelector()  # Adds interactive date range
+```
+
+## Local View of Data: Beans
+
+```{r }
+p1 <- veg_filled |>
+  filter(Year == 2025) |>
+  filter(Item == "Beans", Type == "Retail", Market == "Dambulla") |>
+  mutate(
+    Week = isoweek(Date),
+    Wday = factor(
+      wday(Date, label = TRUE, abbr = TRUE, week_start = 1),
+      levels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+    ),
+    Count_bin = cut(
+      Price,
+      breaks = c(-Inf, 100, 300, 500, 700, 800, Inf),
+      labels = c(
+        "<100",
+        "101–300",
+        "301–500",
+        "501–700",
+        "701–800",
+        ">801"
+      ),
+      right = FALSE
+    )
+  )
+git_colours <- c(
+  "#d73027",
+  "#f46d43",
+  "#fdae61",
+  "#ffffbf",
+  "#74add1",
+  "#4575b4"
+)
+
+p1 <- p1 %>%
+  arrange(Date) %>%
+  group_by(Year) %>%
+  mutate(
+    Month_label = if_else(day(Date) == 1, 
+                          as.character(month(Date, label = TRUE, abbr = TRUE)), 
+                          NA_character_)
+  ) %>%
+  ungroup()
+ggplot(p1, aes(Week, Wday)) +
+  geom_tile(aes(fill = Count_bin),
+            width = 0.9, height = 0.9,
+            color = "white") +   # white outlines
+  geom_text(aes(x = Week, y = 8, label = Month_label),
+            na.rm = TRUE, fontface = "bold", size = 3) +
+  scale_fill_manual(values = git_colours, drop = FALSE, name = "Daily arrivals") +
+  facet_wrap(~ Year, ncol = 1) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_discrete(limits = c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")) +
+  labs(
+  #  title = "Daily Tourist Arrivals (GitHub-style Calendar Heatmap)",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.ticks = element_blank(),
+    strip.text = element_text(face = "bold")
+   # legend.position = "bottom"
+  )
+```
 
 ## Local View of Data
 
@@ -736,4 +832,363 @@ A single model for forecasting all series offers several advantages:
 # install.packages("pak")
 pak::pak("thiyangt/vegcast")
 library(vegcast)
+```
+
+# Forecast Accuracy 
+
+## Retail-Dambulla: MAPE
+
+```{r, warning=FALSE, message=FALSE}
+library(readr)
+library(tidyverse)
+library(Metrics)
+accuracy_arima <- read_csv("ARIMA/accuracy_arima.csv")
+accuracy_ets <- read_csv("ETS/accuracy_ets.csv")
+accuracy_naive <- read_csv("NAIVE/accuracy_naive.csv")
+accuracy_snaive <- read_csv("SNAIVE/accuracy_snaive.csv")
+accuracy_stlarima <- read_csv("STL_ARIMA/accuracy_stlarima.csv")
+accuracy_stlets <- read_csv("STL_ETS/accuracy_stlets.csv")
+error_rf <- read_csv("results/mean_errors_rf1.csv")
+error_nodup <- read_csv("results/mean_errors_rf2.csv")
+mean_errors_rf <- error_rf |>
+  group_by(Item, Type, Market) %>%
+  summarise(
+    mean_RMSE = mean(mean_RMSE, na.rm = TRUE),
+    mean_MAE  = mean(mean_MAE, na.rm = TRUE),
+    mean_MAPE = mean(mean_MAPE, na.rm = TRUE)
+  )
+
+mean_errors_rf2 <- error_nodup |>
+  group_by(Item, Type, Market) %>%
+  summarise(
+    mean_RMSE = mean(mean_RMSE, na.rm = TRUE),
+    mean_MAE  = mean(mean_MAE, na.rm = TRUE),
+    mean_MAPE = mean(mean_MAPE, na.rm = TRUE)
+  )
+all <- accuracy_arima |> rename(SARIMA = MAPE)
+all$ETS <- accuracy_ets$MAPE
+all$NAIVE <- accuracy_naive$MAPE
+all$SNAIVE <- accuracy_snaive$MAPE
+all$STLARIMA <- accuracy_stlarima$MAPE
+all$STLETS <- accuracy_stlets$MAPE
+all$RF <- mean_errors_rf2$mean_MAPE
+all$RAFRF <- mean_errors_rf$mean_MAPE
+all <- all |> select(Item, Type, Market, 
+                     SARIMA,
+                     ETS,
+                     NAIVE,
+                     SNAIVE,
+                     STLARIMA,
+                     STLETS, 
+                     RF,
+                     RAFRF)
+
+```
+
+```{r}
+#| fig.height: 10
+
+df_long <- all |>
+  filter(Type == "Retail",
+         Market == "Dambulla") |>
+  pivot_longer(
+    cols = c(SARIMA, ETS, NAIVE, SNAIVE, STLARIMA, STLETS, RF, RAFRF),
+    names_to = "Model",
+    values_to = "MAPE"
+  ) |>
+  mutate(
+    Highlight = if_else(Model == "RAFRF", "RAFRF", "Other")
+  )
+```
+
+```{r}
+ggplot(
+  df_long,
+  aes(
+    x = reorder_within(Model, -MAPE, Item),
+    y = MAPE,
+    fill = Highlight
+  )
+) +
+  geom_col() +
+  facet_wrap(~ Item, scales = "free_y") +
+  scale_x_reordered() +
+  scale_fill_manual(
+    values = c("RAFRF" = "red", "Other" = "grey70")
+  ) +
+  coord_flip() +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  ) +
+  labs(
+   # title = "Retail - Dambulla",
+    x = NULL,
+  #  y = "RMSE"
+  )
+```
+
+## Wholesale-Dambulla: MAPE
+
+```{r}
+#| fig.height: 10
+
+df_long <- all |>
+  filter(Type == "Wholesale",
+         Market == "Dambulla") |>
+  pivot_longer(
+    cols = c(SARIMA, ETS, NAIVE, SNAIVE, STLARIMA, STLETS, RF, RAFRF),
+    names_to = "Model",
+    values_to = "MAPE"
+  ) |>
+  mutate(
+    Highlight = if_else(Model == "RAFRF", "RAFRF", "Other")
+  )
+```
+
+```{r}
+ggplot(
+  df_long,
+  aes(
+    x = reorder_within(Model, -MAPE, Item),
+    y = MAPE,
+    fill = Highlight
+  )
+) +
+  geom_col() +
+  facet_wrap(~ Item, scales = "free_y") +
+  scale_x_reordered() +
+  scale_fill_manual(
+    values = c("RAFRF" = "red", "Other" = "grey70")
+  ) +
+  coord_flip() +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  ) +
+  labs(
+   # title = "Retail - Dambulla",
+    x = NULL,
+  #  y = "RMSE"
+  )
+```
+
+## Retail-Pettah: MAPE
+
+```{r}
+#| fig.height: 10
+
+df_long <- all |>
+  filter(Type == "Retail",
+         Market == "Pettah") |>
+  pivot_longer(
+    cols = c(SARIMA, ETS, NAIVE, SNAIVE, STLARIMA, STLETS, RF, RAFRF),
+    names_to = "Model",
+    values_to = "MAPE"
+  ) |>
+  mutate(
+    Highlight = if_else(Model == "RAFRF", "RAFRF", "Other")
+  )
+```
+
+```{r}
+ggplot(
+  df_long,
+  aes(
+    x = reorder_within(Model, -MAPE, Item),
+    y = MAPE,
+    fill = Highlight
+  )
+) +
+  geom_col() +
+  facet_wrap(~ Item, scales = "free_y") +
+  scale_x_reordered() +
+  scale_fill_manual(
+    values = c("RAFRF" = "red", "Other" = "grey70")
+  ) +
+  coord_flip() +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  ) +
+  labs(
+   # title = "Retail - Dambulla",
+    x = NULL,
+  #  y = "RMSE"
+  )
+```
+
+## Wholesale-Pettah: MAPE
+
+```{r}
+#| fig.height: 10
+
+df_long <- all |>
+  filter(Type == "Wholesale",
+         Market == "Pettah") |>
+  pivot_longer(
+    cols = c(SARIMA, ETS, NAIVE, SNAIVE, STLARIMA, STLETS, RF, RAFRF),
+    names_to = "Model",
+    values_to = "MAPE"
+  ) |>
+  mutate(
+    Highlight = if_else(Model == "RAFRF", "RAFRF", "Other")
+  )
+```
+
+```{r}
+ggplot(
+  df_long,
+  aes(
+    x = reorder_within(Model, -MAPE, Item),
+    y = MAPE,
+    fill = Highlight
+  )
+) +
+  geom_col() +
+  facet_wrap(~ Item, scales = "free_y") +
+  scale_x_reordered() +
+  scale_fill_manual(
+    values = c("RAFRF" = "red", "Other" = "grey70")
+  ) +
+  coord_flip() +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  ) +
+  labs(
+   # title = "Retail - Dambulla",
+    x = NULL,
+  #  y = "RMSE"
+  )
+```
+
+## Best Method for Each Series
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+# Assuming your tibble is called all_fitted_rf
+
+# Step 1: Pivot longer so all models are in one column
+long_fitted <- all %>%
+  pivot_longer(
+    cols = SARIMA:RAFRF, 
+    names_to = "Model", 
+    values_to = "MAPE"
+  )
+
+# Step 2: For each Item, Type, Market, find the model with the lowest MAPE
+best_models <- long_fitted %>%
+  group_by(Item, Type, Market) %>%
+  slice_min(MAPE, n = 1, with_ties = FALSE) %>%  # pick lowest MAPE
+  ungroup()
+
+# Step 3: Display nicely
+best_models |> as.data.frame()
+```
+
+## 
+
+```{r}
+features_train_pca <- features_train_pca |>
+  left_join(best_models, by =c("Item", "Type", "Market"))
+
+p4 <- ggplot(features_train_pca, aes(x = PC1, y = PC2, color = Model)) +
+  geom_point(size = 2) +
+  scale_color_brewer(palette = "Set2") +
+  theme(
+    legend.position = "bottom",
+    aspect.ratio = 1
+  ) +
+  labs(title = "Best Model", x = "PC1", y = "PC2", color = "Type") 
+
+p4
+
+```
+
+## Variable Importance (Top 30)
+
+```{r, echo=FALSE}
+# Load later
+model_rf <- readRDS("model_rf.rds")
+# Extract variable importance
+var_imp <- model_rf$variable.importance
+
+# Sort from most to least important
+var_imp_sorted <- sort(var_imp, decreasing = TRUE)
+#var_imp_sorted
+library(ggplot2)
+
+# Convert to a tidy data frame
+var_imp_df <- data.frame(
+  Variable = names(var_imp_sorted),
+  Importance = var_imp_sorted
+)
+
+top20 <- var_imp_df[1:30,]
+ggplot(top20, aes(x = reorder(Variable, Importance), y = Importance)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() + # flip for better readability
+  labs(title = "Variable Importance (Permutation)",
+       x = "Variable",
+       y = "Importance")
+```
+
+## Variable Importance (Bottom 40)
+
+```{r, echo=FALSE}
+# Load later
+model_rf <- readRDS("model_rf.rds")
+# Extract variable importance
+var_imp <- model_rf$variable.importance
+
+# Sort from most to least important
+var_imp_sorted <- sort(var_imp, decreasing = TRUE)
+#var_imp_sorted
+library(ggplot2)
+
+# Convert to a tidy data frame
+var_imp_df <- data.frame(
+  Variable = names(var_imp_sorted),
+  Importance = var_imp_sorted
+)
+
+top20 <- var_imp_df[50:90,]
+ggplot(top20, aes(x = reorder(Variable, Importance), y = Importance)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() + # flip for better readability
+  labs(title = "Variable Importance (Permutation)",
+       x = "Variable",
+       y = "Importance")
+```
+
+## Variable Importance (Top 30): Model Without Duplicate Features
+
+```{r, echo=FALSE}
+# Load later
+model_rf <- readRDS("model_rf2.rds")
+# Extract variable importance
+var_imp <- model_rf$variable.importance
+
+# Sort from most to least important
+var_imp_sorted <- sort(var_imp, decreasing = TRUE)
+#var_imp_sorted
+library(ggplot2)
+
+# Convert to a tidy data frame
+var_imp_df <- data.frame(
+  Variable = names(var_imp_sorted),
+  Importance = var_imp_sorted
+)
+
+top20 <- var_imp_df[1:30,]
+ggplot(top20, aes(x = reorder(Variable, Importance), y = Importance)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() + # flip for better readability
+  labs(title = "Variable Importance (Permutation)",
+       x = "Variable",
+       y = "Importance")
 ```

@@ -63,18 +63,25 @@
     "text": "Local View\n\nLocal view focuses on fine details.\n\nWhat happens to vegetable prices on Mondays?\nDo prices change on weekends compared to weekdays?\nIs there a price spike on a particular day of the week?\nWhat happens to prices during festive weeks?\nHow do prices change immediately after a festival?\nIs there a short-term spike during the Sinhala and Tamil New Year?\nWhat is the price impact during a sudden supply shortage?"
   },
   {
+    "objectID": "index.html#local-view-of-data-beans",
+    "href": "index.html#local-view-of-data-beans",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Local View of Data: Beans",
+    "text": "Local View of Data: Beans"
+  },
+  {
+    "objectID": "index.html#local-view-of-data-beans-1",
+    "href": "index.html#local-view-of-data-beans-1",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Local View of Data: Beans",
+    "text": "Local View of Data: Beans"
+  },
+  {
     "objectID": "index.html#local-view-of-data",
     "href": "index.html#local-view-of-data",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
     "section": "Local View of Data",
-    "text": "Local View of Data"
-  },
-  {
-    "objectID": "index.html#global-view-of-data-visualisation-of-time-series-in-a-feature-space",
-    "href": "index.html#global-view-of-data-visualisation-of-time-series-in-a-feature-space",
-    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "Global view of data: Visualisation of Time Series in a Feature-Space",
-    "text": "Global view of data: Visualisation of Time Series in a Feature-Space"
+    "text": "Local View of Data\nhttps://thiyangt.github.io/vegetableBook/"
   },
   {
     "objectID": "index.html#benchmark-approaches",
@@ -84,39 +91,11 @@
     "text": "Benchmark Approaches\n\nNaive\nSnaive\nSARIMA\nETS\nSTL-ETS: STL decomposition is applied to separate trend and seasonal components. Then, ETS is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend.\nSTL-ARIMA: STL decomposition is applied to separate trend and seasonal components. Then, ARIMA is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend."
   },
   {
-    "objectID": "index.html#raf-rf-package",
-    "href": "index.html#raf-rf-package",
+    "objectID": "index.html#retrieval-augmented-feature-based-random-forest-raf-rf",
+    "href": "index.html#retrieval-augmented-feature-based-random-forest-raf-rf",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "RAF-RF: Package",
-    "text": "RAF-RF: Package\n# install.packages(\"pak\")\npak::pak(\"thiyangt/vegcast\")\nlibrary(vegcast)"
-  },
-  {
-    "objectID": "index.html#section-15",
-    "href": "index.html#section-15",
-    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "",
-    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
-  },
-  {
-    "objectID": "index.html#model-fitting",
-    "href": "index.html#model-fitting",
-    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "Model Fitting",
-    "text": "Model Fitting\n\nThe 30 features corresponding to the past 30 time-window values are duplicated in the model (i.e., lag1, lag2, …, lag30).\nReason: To give higher weight to these features in the model.\nBy doing so, we aim to signal to the model that recent observations carry more importance."
-  },
-  {
-    "objectID": "index.html#section-14",
-    "href": "index.html#section-14",
-    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "",
-    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
-  },
-  {
-    "objectID": "index.html#local-view-of-data-1",
-    "href": "index.html#local-view-of-data-1",
-    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "Local View of Data",
-    "text": "Local View of Data\nhttps://thiyangt.github.io/vegetableBook/"
+    "section": "Retrieval-Augmented Feature-Based Random Forest (RAF-RF)",
+    "text": "Retrieval-Augmented Feature-Based Random Forest (RAF-RF)\n\nRandom Forest algorithm\nFeature-based forecasting\nRetrieved recent data"
   },
   {
     "objectID": "index.html#section-16",
@@ -126,6 +105,13 @@
     "text": "Time features\n\nDay, Year, Month, Week\n\nLag features\n\nlag7, lag14, lag30, lag365\n\nPCA features\n\nFirst two PCs computed from lag features\n\nCompute past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
   },
   {
+    "objectID": "index.html#retrieved-recent-data",
+    "href": "index.html#retrieved-recent-data",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Retrieved Recent Data",
+    "text": "Retrieved Recent Data\n\nThe 30 features corresponding to the past 30 time-window values are duplicated in the model (i.e., lag1, lag2, …, lag30).\nReason: To give higher weight to these features in the model.\nBy doing so, we aim to signal to the model that recent observations carry more importance."
+  },
+  {
     "objectID": "index.html#feature-engineering-for-raf-rf",
     "href": "index.html#feature-engineering-for-raf-rf",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
@@ -133,17 +119,31 @@
     "text": "Feature Engineering for RAF-RF\n# install.packages(\"pak\")\npak::pak(\"thiyangt/vegcast\")\nlibrary(vegcast)"
   },
   {
-    "objectID": "index.html#retrieval-augmented-feature-based-random-forest-raf-rf",
-    "href": "index.html#retrieval-augmented-feature-based-random-forest-raf-rf",
+    "objectID": "index.html#retail-dambulla-mape",
+    "href": "index.html#retail-dambulla-mape",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "Retrieval-Augmented Feature-Based Random Forest (RAF-RF)",
-    "text": "Retrieval-Augmented Feature-Based Random Forest (RAF-RF)\n\nRandom Forest algorithm\nFeature-based forecasting\nRetrieved recent data"
+    "section": "Retail-Dambulla: MAPE",
+    "text": "Retail-Dambulla: MAPE"
   },
   {
-    "objectID": "index.html#retrieved-recent-data",
-    "href": "index.html#retrieved-recent-data",
+    "objectID": "index.html#wholesale-dambulla-mape",
+    "href": "index.html#wholesale-dambulla-mape",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "Retrieved Recent Data",
-    "text": "Retrieved Recent Data\n\nThe 30 features corresponding to the past 30 time-window values are duplicated in the model (i.e., lag1, lag2, …, lag30).\nReason: To give higher weight to these features in the model.\nBy doing so, we aim to signal to the model that recent observations carry more importance."
+    "section": "Wholesale-Dambulla: MAPE",
+    "text": "Wholesale-Dambulla: MAPE"
+  },
+  {
+    "objectID": "index.html#retail-pettah-mape",
+    "href": "index.html#retail-pettah-mape",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Retail-Pettah: MAPE",
+    "text": "Retail-Pettah: MAPE"
+  },
+  {
+    "objectID": "index.html#wholesale-pettah-mape",
+    "href": "index.html#wholesale-pettah-mape",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Wholesale-Pettah: MAPE",
+    "text": "Wholesale-Pettah: MAPE"
   }
 ]
