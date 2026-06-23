@@ -675,7 +675,9 @@ dygraph(beans_xts, main = "Beans Price in Dambulla (Retail)") %>%
   dyRangeSelector()  # Adds interactive date range
 ```
 
-## Local View of Data: Beans
+#
+
+### Local View of Data: Beans-Retail-Dambulla
 
 ```{r }
 p1 <- veg_filled |>
@@ -747,7 +749,7 @@ ggplot(p1, aes(Week, Wday)) +
 
 [https://thiyangt.github.io/vegetableBook/](https://thiyangt.github.io/vegetableBook/)
 
-
+#
 ## Benchmark Approaches
 
 - Naive
@@ -1087,10 +1089,9 @@ best_models <- long_fitted %>%
   ungroup()
 
 # Step 3: Display nicely
-best_models |> as.data.frame()
+#best_models |> as.data.frame()
 ```
 
-## 
 
 ```{r}
 features_train_pca <- features_train_pca |>
@@ -1103,7 +1104,7 @@ p4 <- ggplot(features_train_pca, aes(x = PC1, y = PC2, color = Model)) +
     legend.position = "bottom",
     aspect.ratio = 1
   ) +
-  labs(title = "Best Model", x = "PC1", y = "PC2", color = "Type") 
+  labs( x = "PC1", y = "PC2", color = "Type") 
 
 p4
 
@@ -1113,7 +1114,7 @@ p4
 
 ```{r, echo=FALSE}
 # Load later
-model_rf <- readRDS("model_rf.rds")
+model_rf <- readRDS("data/model_rf.rds")
 # Extract variable importance
 var_imp <- model_rf$variable.importance
 
@@ -1137,11 +1138,11 @@ ggplot(top20, aes(x = reorder(Variable, Importance), y = Importance)) +
        y = "Importance")
 ```
 
-## Variable Importance (Bottom 40)
+## Variable Importance (Bottom 50)
 
 ```{r, echo=FALSE}
 # Load later
-model_rf <- readRDS("model_rf.rds")
+model_rf <- readRDS("data/model_rf.rds")
 # Extract variable importance
 var_imp <- model_rf$variable.importance
 
@@ -1169,7 +1170,7 @@ ggplot(top20, aes(x = reorder(Variable, Importance), y = Importance)) +
 
 ```{r, echo=FALSE}
 # Load later
-model_rf <- readRDS("model_rf2.rds")
+model_rf <- readRDS("data/model_rf2.rds")
 # Extract variable importance
 var_imp <- model_rf$variable.importance
 
@@ -1192,3 +1193,21 @@ ggplot(top20, aes(x = reorder(Variable, Importance), y = Importance)) +
        x = "Variable",
        y = "Importance")
 ```
+
+# Discussion and Conclusions
+
+- The proposed method performs well for all series except two.
+
+- The most important features are the first lag and summary statistics computed from the 30-lag window.
+
+ - Qualitative variables are the least important in the global variable importance ranking.
+ 
+- Future direction: Explore local interpretability methods to better understand individual predictions and model behavior at the observation level.
+
+# Contact
+
+Slides: https://thiyangt.github.io/isf2026/#/title-slide
+
+Codes to reproduce results: https://github.com/thiyangt/vegforecastISF2026
+
+Email: ttalagala@sjp.ac.lk

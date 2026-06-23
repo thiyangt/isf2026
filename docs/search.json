@@ -70,13 +70,6 @@
     "text": "Local View of Data: Beans"
   },
   {
-    "objectID": "index.html#local-view-of-data-beans-1",
-    "href": "index.html#local-view-of-data-beans-1",
-    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
-    "section": "Local View of Data: Beans",
-    "text": "Local View of Data: Beans"
-  },
-  {
     "objectID": "index.html#local-view-of-data",
     "href": "index.html#local-view-of-data",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
@@ -98,8 +91,8 @@
     "text": "Retrieval-Augmented Feature-Based Random Forest (RAF-RF)\n\nRandom Forest algorithm\nFeature-based forecasting\nRetrieved recent data"
   },
   {
-    "objectID": "index.html#section-16",
-    "href": "index.html#section-16",
+    "objectID": "index.html#section-18",
+    "href": "index.html#section-18",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
     "section": "",
     "text": "Time features\n\nDay, Year, Month, Week\n\nLag features\n\nlag7, lag14, lag30, lag365\n\nPCA features\n\nFirst two PCs computed from lag features\n\nCompute past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
@@ -145,5 +138,33 @@
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
     "section": "Wholesale-Pettah: MAPE",
     "text": "Wholesale-Pettah: MAPE"
+  },
+  {
+    "objectID": "index.html#best-method-for-each-series",
+    "href": "index.html#best-method-for-each-series",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Best Method for Each Series",
+    "text": "Best Method for Each Series"
+  },
+  {
+    "objectID": "index.html#variable-importance-top-30",
+    "href": "index.html#variable-importance-top-30",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Variable Importance (Top 30)",
+    "text": "Variable Importance (Top 30)"
+  },
+  {
+    "objectID": "index.html#variable-importance-bottom-50",
+    "href": "index.html#variable-importance-bottom-50",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Variable Importance (Bottom 50)",
+    "text": "Variable Importance (Bottom 50)"
+  },
+  {
+    "objectID": "index.html#variable-importance-top-30-model-without-duplicate-features",
+    "href": "index.html#variable-importance-top-30-model-without-duplicate-features",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Variable Importance (Top 30): Model Without Duplicate Features",
+    "text": "Variable Importance (Top 30): Model Without Duplicate Features"
   }
 ]
