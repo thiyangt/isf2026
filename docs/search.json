@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "index.html#goal",
+    "href": "index.html#goal",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Goal",
+    "text": "Goal\nTo analyse and forecast retail and wholesale vegetable prices in Dambulla and Pettah."
+  },
+  {
     "objectID": "index.html#data",
     "href": "index.html#data",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
@@ -32,7 +39,7 @@
     "href": "index.html#vegetables-included-in-the-analysis",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
     "section": "Vegetables Included in the Analysis",
-    "text": "Vegetables Included in the Analysis\n\n\n [1] \"Beans\"             \"Big Onion (Imp)\"   \"Big Onion (Local)\"\n [4] \"Brinjal\"           \"Cabbage\"           \"Carrot\"           \n [7] \"Green Chilli\"      \"Lime\"              \"Potato (Imp)\"     \n[10] \"Potato (Local)\"    \"Pumpkin\"           \"Red Onion (Imp)\"  \n[13] \"Red Onion (Local)\" \"Snake gourd\"       \"Tomato\""
+    "text": "Vegetables Included in the Analysis\n\n\n\nBeans\nBig Onion (Imp)\nBig Onion (Local)\nBrinjal\nCabbage\nCarrot\nGreen Chilli\n\n\n\nLime\nPotato (Imp)\nPotato (Local)\nPumpkin\nRed onion (Imp)\nRed Onion (Local)\nSnake gourd\nTomato"
   },
   {
     "objectID": "index.html#local-view-of-data",
@@ -70,8 +77,8 @@
     "text": "RAF-RF: Package\n# install.packages(\"pak\")\npak::pak(\"thiyangt/vegcast\")\nlibrary(vegcast)"
   },
   {
-    "objectID": "index.html#section-5",
-    "href": "index.html#section-5",
+    "objectID": "index.html#section-7",
+    "href": "index.html#section-7",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
     "section": "",
     "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
@@ -82,5 +89,75 @@
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
     "section": "Model Fitting",
     "text": "Model Fitting\n\nThe following two features are duplicated in the model.\nReason: To give higher weight to these features in the model.\nBy doing so, I aim to signal to the model that recent observations carry more importance.\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nCompute Past 30 window values\n\nPast 30 window values"
+  },
+  {
+    "objectID": "index.html#goal-1",
+    "href": "index.html#goal-1",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Goal",
+    "text": "Goal\nTo analyse and forecast retail and wholesale vegetable prices in Dambulla and Pettah."
+  },
+  {
+    "objectID": "index.html#section-8",
+    "href": "index.html#section-8",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "",
+    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
+  },
+  {
+    "objectID": "index.html#section-9",
+    "href": "index.html#section-9",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "",
+    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
+  },
+  {
+    "objectID": "index.html#section-10",
+    "href": "index.html#section-10",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "",
+    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
+  },
+  {
+    "objectID": "index.html#daily-price-reports-published-by-cbsl",
+    "href": "index.html#daily-price-reports-published-by-cbsl",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Daily Price Reports Published by CBSL",
+    "text": "Daily Price Reports Published by CBSL"
+  },
+  {
+    "objectID": "index.html#daily-price-reports-published-by-cbsl-1",
+    "href": "index.html#daily-price-reports-published-by-cbsl-1",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Daily Price Reports Published by CBSL",
+    "text": "Daily Price Reports Published by CBSL"
+  },
+  {
+    "objectID": "index.html#section-11",
+    "href": "index.html#section-11",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "",
+    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
+  },
+  {
+    "objectID": "index.html#we-have-a-total-of-60-time-series",
+    "href": "index.html#we-have-a-total-of-60-time-series",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "We have a total of 60 time series",
+    "text": "We have a total of 60 time series\n\nFor each vegetable, we have four time series plots:\n\nDambulla–Retail\nDambulla–Wholesale\nPettah–Retail\nPettah–Wholesale\n\nWith 15 vegetables, this results in 60 plots in total"
+  },
+  {
+    "objectID": "index.html#section-12",
+    "href": "index.html#section-12",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "",
+    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
+  },
+  {
+    "objectID": "index.html#section-13",
+    "href": "index.html#section-13",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "",
+    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
   }
 ]
