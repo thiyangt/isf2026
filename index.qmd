@@ -174,7 +174,111 @@ unique(vegetables.srilanka$Item)
 
 [https://thiyangt.github.io/vegetableBook/](https://thiyangt.github.io/vegetableBook/)
 
+##
+
+```{r}
+#| fig.width: 12
+#| fig.height: 6
+library(ggplot2)
+library(dplyr)
+
+p1 <-vegetables.srilanka |>
+  mutate(
+    Series = paste(Market, Type, sep = " - ")
+  ) |>
+  ggplot(
+    aes(
+      x = Date,
+      y = Price,
+      colour = Series,
+      group = Series
+    )
+  ) +
+  geom_line(linewidth = 0.5, alpha = 0.8) +
+  facet_wrap(~Item, scales = "free_y") +
+  labs(
+    x = NULL,
+    y = "Price (LKR/kg)",
+    colour = NULL,
+    title = "Vegetable Prices by Market and Type"
+  ) +
+  scale_color_brewer(palette = "Dark2") +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold")
+  )
+p1
+```
+
 ## 
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(GGally)
+
+library(dplyr)
+library(ggplot2)
+
+beans <- vegetables.srilanka |>
+  filter(Item == "Beans")
+
+p2 <- ggplot(beans, aes(x = Date, y = Price)) +
+  geom_line(linewidth = 0.7) +
+#  geom_point(size = 0.6, alpha = 0.6) +
+  facet_grid(Market ~ Type) +
+  labs(
+    title = "Beans Price Over Time",
+    x = "Date",
+    y = "Price"
+  ) +
+  theme_minimal()
+p2
+```
+
+##
+
+```{r}
+plot_cor <- function(item_name) {
+
+  vegetables.srilanka |>
+    filter(Item == item_name) |>
+    mutate(series = paste(Market, Type, sep = "_")) |>
+    select(Date, series, Price) |>
+    pivot_wider(
+      names_from = series,
+      values_from = Price
+    ) |>
+    select(-Date) |>
+    ggpairs(
+     # upper = list(continuous = wrap("cor", size = 4)),
+     # lower = "blank",
+    #  diag = list(continuous = "blank")
+    alpha=0.5) +
+    ggtitle(item_name)
+}
+
+```
+
+```{r}
+#| fig.height: 6
+#| fig.width: 6
+plot_cor("Beans")
+
+```
+
+## We have a total of 60 time series.
+
+- For each vegetable, we have four time series plots:
+
+    - Dambulla–Retail
+    - Dambulla–Wholesale
+    - Pettah–Retail
+    - Pettah–Wholesale
+
+- With 15 vegetables, this results in 60 plots in total
 
 ## Global view of data: Visualisation of Time Series in a Feature-Space
 

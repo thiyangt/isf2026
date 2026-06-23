@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "index.html#data",
+    "href": "index.html#data",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Data",
+    "text": "Data\nDaily price reports published by the Central Bank of Sri Lanka (CBSL)"
+  },
+  {
+    "objectID": "index.html#a-sample-daily-price-report",
+    "href": "index.html#a-sample-daily-price-report",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "A Sample Daily Price Report",
+    "text": "A Sample Daily Price Report"
+  },
+  {
+    "objectID": "index.html#r-package-for-web-scrapping-data-from-daily-price-reports",
+    "href": "index.html#r-package-for-web-scrapping-data-from-daily-price-reports",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "R package for Web Scrapping Data From Daily Price Reports",
+    "text": "R package for Web Scrapping Data From Daily Price Reports\n# install.packages(\"pak\")\npak::pak(\"thiyangt/vegscraper\")\nvegscraper::run_app()"
+  },
+  {
+    "objectID": "index.html#r-package-for-tidy-data",
+    "href": "index.html#r-package-for-tidy-data",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "R Package for Tidy Data",
+    "text": "R Package for Tidy Data\n\n\ninstall.packages(\"vegetablesSriLanka\")\npak::pak(\"thiyangt/vegetablesSriLanka\")\n\n\nlibrary(vegetablesSriLanka)\ndata(\"vegetables.srilanka\")\nvegetables.srilanka\n\n# A tibble: 125,576 × 5\n   Date       Item  Type   Market   Price\n   &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;\n 1 2016-08-01 Beans Retail Dambulla   165\n 2 2016-08-02 Beans Retail Dambulla   190\n 3 2016-08-03 Beans Retail Dambulla   190\n 4 2016-08-04 Beans Retail Dambulla   190\n 5 2016-08-05 Beans Retail Dambulla   190\n 6 2016-08-08 Beans Retail Dambulla   190\n 7 2016-08-09 Beans Retail Dambulla   175\n 8 2016-08-10 Beans Retail Dambulla   190\n 9 2016-08-11 Beans Retail Dambulla   190\n10 2016-08-12 Beans Retail Dambulla   175\n# ℹ 125,566 more rows"
+  },
+  {
+    "objectID": "index.html#vegetables-included-in-the-analysis",
+    "href": "index.html#vegetables-included-in-the-analysis",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Vegetables Included in the Analysis",
+    "text": "Vegetables Included in the Analysis\n\n\n [1] \"Beans\"             \"Big Onion (Imp)\"   \"Big Onion (Local)\"\n [4] \"Brinjal\"           \"Cabbage\"           \"Carrot\"           \n [7] \"Green Chilli\"      \"Lime\"              \"Potato (Imp)\"     \n[10] \"Potato (Local)\"    \"Pumpkin\"           \"Red Onion (Imp)\"  \n[13] \"Red Onion (Local)\" \"Snake gourd\"       \"Tomato\""
+  },
+  {
+    "objectID": "index.html#local-view-of-data",
+    "href": "index.html#local-view-of-data",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Local View of Data",
+    "text": "Local View of Data\nhttps://thiyangt.github.io/vegetableBook/"
+  },
+  {
+    "objectID": "index.html#we-have-a-total-of-60-time-series.",
+    "href": "index.html#we-have-a-total-of-60-time-series.",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "We have a total of 60 time series.",
+    "text": "We have a total of 60 time series.\n\nFor each vegetable, we have four time series plots:\n\nDambulla–Retail\nDambulla–Wholesale\nPettah–Retail\nPettah–Wholesale\n\nWith 15 vegetables, this results in 60 plots in total"
+  },
+  {
+    "objectID": "index.html#global-view-of-data-visualisation-of-time-series-in-a-feature-space",
+    "href": "index.html#global-view-of-data-visualisation-of-time-series-in-a-feature-space",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Global view of data: Visualisation of Time Series in a Feature-Space",
+    "text": "Global view of data: Visualisation of Time Series in a Feature-Space"
+  },
+  {
+    "objectID": "index.html#benchmark-approaches",
+    "href": "index.html#benchmark-approaches",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Benchmark Approaches",
+    "text": "Benchmark Approaches\n\nNaive\nSnaive\nSARIMA\nETS\nSTL-ETS: STL decomposition is applied to separate trend and seasonal components. Then, ETS is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend.\nSTL-ARIMA: STL decomposition is applied to separate trend and seasonal components. Then, ARIMA is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend."
+  },
+  {
+    "objectID": "index.html#raf-rf-package",
+    "href": "index.html#raf-rf-package",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "RAF-RF: Package",
+    "text": "RAF-RF: Package\n# install.packages(\"pak\")\npak::pak(\"thiyangt/vegcast\")\nlibrary(vegcast)"
+  },
+  {
+    "objectID": "index.html#section-5",
+    "href": "index.html#section-5",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "",
+    "text": "Time Features\n\nDay, Year, Month, Week\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nPCA Features\n\nFirst two PCs computed from lag features\n\nCompute Past 30 window values\n\nPast 30 window values\n\n\n\n\nFeatures based on past 30 window values\n\nMinimum, maximum, median, Q1, Q3, Standarad Deviation\n\nFourier terms\n\nsin_week = sin(2 * pi * t / 7), cos_week = cos(2 * pi * t / 7), sin_year = sin(2 * pi * t / 365), cos_year = cos(2 * pi * t / 365)"
+  },
+  {
+    "objectID": "index.html#model-fitting",
+    "href": "index.html#model-fitting",
+    "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
+    "section": "Model Fitting",
+    "text": "Model Fitting\n\nThe following two features are duplicated in the model.\nReason: To give higher weight to these features in the model.\nBy doing so, I aim to signal to the model that recent observations carry more importance.\n\nLag Features\n\nlag7, lag14, lag30, lag365\n\nCompute Past 30 window values\n\nPast 30 window values"
+  }
+]
