@@ -12,8 +12,8 @@ format:
 author:
   - name: Thiyanga S. Talagala
     email: 
-    affiliations: Department of Statistics, University of Sri Jayewardenepura, Sri Lanka
-subtitle: "International Symposium on Forecasting, 2026"
+    affiliations: Department of Statistics, University of Sri Jayewardenepura, Sri Lanka 
+subtitle: "International Symposium on Forecasting - 2026, Montreal, Canada"
 ---
 
 #
@@ -34,14 +34,18 @@ library(ggplot2)
 #| echo: false
 #| out.height: "100%"
 #| fig.asp: 0.8
+#| warnings: false
+#| message: false
 # install.packages("devtools")
 #devtools::install_github("thiyangt/SriLanka")
-
+library(tidyverse)
+library(here)
 library(SriLanka)
 library(sf)
 library(ggplot2)
 library(dplyr)
 library(plotly)
+library(tidyverse)
 veg_data <- data.frame(
   NAME_2 = c("Dambulla", "Colombo", "Kandy"),
   veg_index = c(90, 40, 70)
@@ -502,6 +506,144 @@ p1 <-vegetables.srilanka |>
 p1
 ```
 
+##  Global View
+
+- Global view focuses on the overall pattern or summary of the data.
+
+- A global view considers the entire dataset at once.
+
+    - What is the long-term pattern in the data?
+
+    - Which market has the highest average price overall?
+
+    - How do Pettah and Dambulla prices compare in general?
+
+
+## Local View
+
+- Local view focuses on fine details.
+
+    - What happens to vegetable prices on Mondays?
+
+    - Do prices change on weekends compared to weekdays?
+
+    - Is there a price spike on a particular day of the week?
+    
+    - What happens to prices during festive weeks?
+
+    - How do prices change immediately after a festival?
+
+    - Is there a short-term spike during the Sinhala and Tamil New Year?
+
+    - What is the price impact during a sudden supply shortage?
+
+#
+
+### Global View: Feature-based Visualization
+
+```{r}
+features_train_pca <- read_csv(here("results", "features_train_pca.csv"))
+library(kableExtra)
+features_train_pca |>
+  knitr::kable() |>
+  kable_styling(font_size = 16)
+```
+
+#
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="100%"}
+library(ggplot2)
+library(patchwork)
+
+
+p1 <- ggplot(features_train_pca, aes(x = PC1, y = PC2, color = factor(Type))) +
+  geom_point(size = 2) +
+  scale_color_brewer(palette = "Set2") +
+  theme(
+    legend.position = "bottom",
+    aspect.ratio = 1
+  )+
+  labs(title = "Type", x = "PC1", y = "PC2", color = "Type") 
+p2 <- ggplot(features_train_pca, aes(x = PC1, y = PC2, color = factor(Market))) +
+  geom_point(size = 2) +
+  scale_color_manual(values = c("#E41A1C", "#377EB8"))+
+  theme(
+    legend.position = "bottom",
+    aspect.ratio = 1
+  ) +
+  labs(title = "Market", x = "PC1", y = "PC2", color = "Type")
+
+p1|p2
+```
+#
+
+**Visualize Feature-space by Vegetable Type**
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| fig.width: 8
+#| fig.height: 6
+ggplot(features_train_pca, aes(x = PC1, y = PC2, color = factor(Item))) +
+  geom_point(size = 3) +
+  theme(
+   legend.position = "right",
+    aspect.ratio = 1
+  ) +
+  labs( x = "PC1", y = "PC2", color = "Type")
+
+```
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| fig.width: 8
+#| fig.height: 6
+library(ggplot2)
+library(gganimate)
+library(dplyr)
+
+
+features_train_pca_anim <- features_train_pca %>%
+  mutate(id = row_number())
+
+library(ggplot2)
+library(gganimate)
+
+p3 <- ggplot(features_train_pca,
+             aes(PC1, PC2, color = Item)) +
+  geom_point(size =4) +
+  theme(
+    aspect.ratio = 1,
+    legend.position = "none"
+  ) +
+  labs(
+    x = "PC1",
+    y = "PC2",
+    title = "Item: {closest_state}"
+  ) +
+  transition_states(
+    Item,
+    transition_length = 2,
+    state_length = 1
+  ) +
+  ease_aes("linear")
+p3
+```
+
+
+:::
+
+::::
+
+## Local View of Data
 
 
 
@@ -509,10 +651,6 @@ p1
 
 [https://thiyangt.github.io/vegetableBook/](https://thiyangt.github.io/vegetableBook/)
 
-
-## Global view of data: Visualisation of Time Series in a Feature-Space
-
-# Forecasting
 
 ## Benchmark Approaches
 
@@ -528,35 +666,44 @@ p1
 
 - STL-ARIMA: STL decomposition is applied to separate trend and seasonal components. Then, ARIMA is applied to the seasonally adjusted series (original series minus seasonal component) to forecast the underlying trend.
 
-# Retrieval-Augmented Feature-Based Random Forest (RAF-RF)
+# Our Approach
 
-## RAF-RF: Package
+A single model for forecasting all series offers several advantages:
 
-``` r
-# install.packages("pak")
-pak::pak("thiyangt/vegcast")
-library(vegcast)
-```
+ - Easier maintenance — only one model needs to be trained, monitored, and updated.
+ 
+ - Cross-learning across vegetables — the model can learn common patterns shared among different vegetables, improving forecasting performance.
 
-# Feature Classes and Features
+- Less preprocessing effort — a unified workflow reduces the need for series-specific feature engineering and model tuning.
+
+## Retrieval-Augmented Feature-Based Random Forest (RAF-RF)
+
+- Random Forest algorithm
+
+- Feature-based forecasting
+
+- Retrieved recent data
+
+
+# Feature-based Forecasting
 
 ## 
 
 :::::: columns
 ::: {.column width="50%"}
-**Time Features**
+**Time features**
 
 - Day, Year, Month, Week
 
-**Lag Features**
+**Lag features**
 
 - lag7, lag14, lag30, lag365
 
-**PCA Features**
+**PCA features**
 
 - First two PCs computed from lag features
 
-**Compute Past 30 window values**
+**Compute past 30 window values**
 
 - Past 30 window values
 :::
@@ -575,18 +722,18 @@ library(vegcast)
 :::
 ::::::
 
-## Model Fitting
+## Retrieved Recent Data
 
-- The following two features are duplicated in the model.
+- The 30 features corresponding to the past 30 time-window values are duplicated in the model (i.e., lag1, lag2, ..., lag30).
 
 - Reason: To give higher weight to these features in the model.
 
-- By doing so, I aim to signal to the model that recent observations carry more importance.
+- By doing so, we aim to signal to the model that recent observations carry more importance.
 
-**Lag Features**
+## Feature Engineering for RAF-RF
 
-- lag7, lag14, lag30, lag365
-
-**Compute Past 30 window values**
-
-- Past 30 window values
+``` r
+# install.packages("pak")
+pak::pak("thiyangt/vegcast")
+library(vegcast)
+```
