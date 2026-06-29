@@ -1,44 +1,3 @@
-#packages
-library(tidyverse)
-
-
-#data
-fc_arima <- read_csv("ARIMA/fc_arima.csv")
-fc_ets <- read_csv("ETS/fc_ets.csv")
-fc_naive <- read_csv("NAIVE/fc_naive.csv")
-fc_snaive <- read_csv("SNAIVE/fc_snaive.csv")
-fc_stlarima <- read_csv("STL_ARIMA/fc_stlarima.csv")
-fc_stlets <- read_csv("STL_ETS/fc_stlets.csv")
-fc_rfdouble <- read_csv("rollingforecast.csv")
-View(fc_arima)
-View(fc_ets)
-View(fc_naive)
-View(fc_snaive)
-View(fc_stlarima)
-View(fc_stlets)
-View(fc_rfdouble)
-
-fc_rfdouble <- fc_rfdouble |>
-  filter(Year > 2025)
-View(fc_rfdouble)
-fc_arima7 <- fc_arima |> filter(Date < "2026-01-08")
-fc_ets7 <- fc_ets |> filter(Date < "2026-01-08")
-fc_naive7 <- fc_naive |> filter(Date < "2026-01-08")
-fc_stlarima7 <- fc_stlarima |> filter(Date < "2026-01-08")
-fc_stlets7 <- fc_stlets |> filter(Date < "2026-01-08")
-fc_rfdouble7 <- fc_rfdouble |> filter(Date < "2026-01-08")
-fc_snaive7 <- fc_snaive |> filter(Date < "2026-01-08")
-
-dim(fc_arima7) 
-dim(fc_ets7)
-dim(fc_naive7)
-dim(fc_stlarima7)
-dim(fc_stlets7)
-dim(fc_rfdouble7)
-
-library(fable)
-library(dplyr)
-
 ####################################################
 library(tidyverse)
 #install.packages("pak")
@@ -92,22 +51,300 @@ veg_filled_imputed <- veg_filled |>
   as_tsibble(key = c(Item, Type, Market),
              index = Date)
 
-
+train <- veg_filled_imputed |>
+  filter(Date < "2026-01-01")
 ################################################
-test7 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
-  filter(Date < "2026-01-08")
-accuracy_snaive7 <- fc_snaive7 |>
-  accuracy(test7)
-
-library(dplyr)
-
-eval_data_snaive7 <- test7 %>%
-  select(Date, Item, Type, Market, Price_interp) %>%
-  left_join(
-    fc_snaive7 %>%
-      select(Date, Item, Type, Market, .mean),
-    by = c("Date", "Item", "Type", "Market")
+fit_snaive <- train |>
+  model(
+    SNAIVE_model = SNAIVE(Price_interp)
   )
 
-rmse_snaive7 <- sqrt(mean((eval_data_snaive7$Price_interp - eval_data_snaive7$.mean)^2, na.rm = TRUE))
-rmse
+test7 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-08")
+fc_snaive7 <- fit_snaive |>
+  forecast(new_data = test7)
+accuracy_snaive7 <- fc_snaive7 |>
+  accuracy(test7)
+write_csv(accuracy_snaive7, "rollinforecaserrors/accuracy_snaive7.csv")
+
+test14 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-15")
+fc_snaive14 <- fit_snaive |>
+  forecast(new_data = test14)
+accuracy_snaive14 <- fc_snaive14 |>
+  accuracy(test14)
+write_csv(accuracy_snaive14, "rollinforecaserrors/accuracy_snaive14.csv")
+
+test21 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-22")
+fc_snaive21 <- fit_snaive |>
+  forecast(new_data = test21)
+accuracy_snaive21 <- fc_snaive21 |>
+  accuracy(test21)
+write_csv(accuracy_snaive21, "rollinforecaserrors/accuracy_snaive21.csv")
+
+test28 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-29")
+fc_snaive28 <- fit_snaive |>
+  forecast(new_data = test28)
+accuracy_snaive28 <- fc_snaive28 |>
+  accuracy(test28)
+write_csv(accuracy_snaive28, "rollinforecaserrors/accuracy_snaive28.csv")
+
+################################################
+fit_naive <- train |>
+  model(
+    NAIVE_model = NAIVE(Price_interp)
+  )
+
+test7 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-08")
+fc_naive7 <- fit_naive |>
+  forecast(new_data = test7)
+accuracy_naive7 <- fc_naive7 |>
+  accuracy(test7)
+write_csv(accuracy_naive7, "rollinforecaserrors/accuracy_naive7.csv")
+
+test14 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-15")
+fc_naive14 <- fit_naive |>
+  forecast(new_data = test14)
+accuracy_naive14 <- fc_naive14 |>
+  accuracy(test14)
+write_csv(accuracy_naive14, "rollinforecaserrors/accuracy_naive14.csv")
+
+test21 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-22")
+fc_naive21 <- fit_naive |>
+  forecast(new_data = test21)
+accuracy_naive21 <- fc_naive21 |>
+  accuracy(test21)
+write_csv(accuracy_naive21, "rollinforecaserrors/accuracy_naive21.csv")
+
+test28 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-29")
+fc_naive28 <- fit_naive |>
+  forecast(new_data = test28)
+accuracy_naive28 <- fc_naive28 |>
+  accuracy(test28)
+write_csv(accuracy_naive28, "rollinforecaserrors/accuracy_naive28.csv")
+
+################################################
+# ARIMA
+fit_arima <- train |>
+  model(
+    ARIMA_model = ARIMA(Price_interp)
+  )
+
+test7 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-08")
+fc_arima7 <- fit_arima |>
+  forecast(new_data = test7)
+accuracy_arima7 <- fc_arima7 |>
+  accuracy(test7)
+write_csv(accuracy_arima7, "rollinforecaserrors/accuracy_arima7.csv")
+
+test14 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-15")
+fc_arima14 <- fit_arima |>
+  forecast(new_data = test14)
+accuracy_arima14 <- fc_arima14 |>
+  accuracy(test14)
+write_csv(accuracy_arima14, "rollinforecaserrors/accuracy_arima14.csv")
+
+test21 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-22")
+fc_arima21 <- fit_arima |>
+  forecast(new_data = test21)
+accuracy_arima21 <- fc_arima21 |>
+  accuracy(test21)
+write_csv(accuracy_arima21, "rollinforecaserrors/accuracy_arima21.csv")
+
+test28 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-29")
+fc_arima28 <- fit_arima |>
+  forecast(new_data = test28)
+accuracy_arima28 <- fc_arima28 |>
+  accuracy(test28)
+write_csv(accuracy_arima28, "rollinforecaserrors/accuracy_arima28.csv")
+
+################################################
+# STL_ARIMA
+fit_stlarima <- train |>
+  model(
+    STL_ARIMA = decomposition_model(
+      STL(Price_interp),
+      ARIMA(season_adjust)
+    )
+  )
+
+test7 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-08")
+fc_stlarima7 <- fit_stlarima |>
+  forecast(new_data = test7)
+accuracy_stlarima7 <- fc_stlarima7 |>
+  accuracy(test7)
+write_csv(accuracy_stlarima7, "rollinforecaserrors/accuracy_stlarima7.csv")
+
+test14 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-15")
+fc_stlarima14 <- fit_stlarima |>
+  forecast(new_data = test14)
+accuracy_stlarima14 <- fc_stlarima14 |>
+  accuracy(test14)
+write_csv(accuracy_stlarima14, "rollinforecaserrors/accuracy_stlarima14.csv")
+
+test21 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-22")
+fc_stlarima21 <- fit_stlarima |>
+  forecast(new_data = test21)
+accuracy_stlarima21 <- fc_stlarima21 |>
+  accuracy(test21)
+write_csv(accuracy_stlarima21, "rollinforecaserrors/accuracy_stlarima21.csv")
+
+test28 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-29")
+fc_stlarima28 <- fit_stlarima |>
+  forecast(new_data = test28)
+accuracy_stlarima28 <- fc_stlarima28 |>
+  accuracy(test28)
+write_csv(accuracy_stlarima28, "rollinforecaserrors/accuracy_stlarima28.csv")
+
+################################################
+# STL_ETS
+fit_stlets <- train |>
+  model(
+    STL_ETS = decomposition_model(
+      STL(Price_interp),
+      ETS(season_adjust)
+    )
+  )
+
+test7 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-08")
+fc_stlets7 <- fit_stlets |>
+  forecast(new_data = test7)
+accuracy_stlets7 <- fc_stlets7 |>
+  accuracy(test7)
+write_csv(accuracy_stlets7, "rollinforecaserrors/accuracy_stlets7.csv")
+
+test14 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-15")
+fc_stlets14 <- fit_stlets |>
+  forecast(new_data = test14)
+accuracy_stlets14 <- fc_stlets14 |>
+  accuracy(test14)
+write_csv(accuracy_stlets14, "rollinforecaserrors/accuracy_stlets14.csv")
+
+test21 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-22")
+fc_stlets21 <- fit_stlets |>
+  forecast(new_data = test21)
+accuracy_stlets21 <- fc_stlets21 |>
+  accuracy(test21)
+write_csv(accuracy_stlets21, "rollinforecaserrors/accuracy_stlets21.csv")
+
+test28 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-29")
+fc_stlets28 <- fit_stlets |>
+  forecast(new_data = test28)
+accuracy_stlets28 <- fc_stlets28 |>
+  accuracy(test28)
+write_csv(accuracy_stlets28, "rollinforecaserrors/accuracy_stlets28.csv")
+
+## rf
+rollingforecast <- read_csv("rollingforecast.csv")
+head(rollingforecast)
+rollingforecast2026 <- rollingforecast |>
+  filter(Date > "2025-12-31") |>
+  rename(prediction = Price_interp)
+View(rollingforecast2026)
+test28 <- veg_filled_imputed |> filter(Date > "2025-12-31") |>
+  filter(Date < "2026-01-29")
+
+rollingfull <- rollingforecast2026 |>
+  left_join(
+    test28 |>
+      select(Date, Item, Type, Market, Price_interp),
+    by = c("Date", "Item", "Type", "Market")
+  )
+View(rollingfull)  
+
+library(dplyr)
+rollingfull7 <- rollingfull |>
+  filter(Date < "2026-01-08")
+
+accuracy_rf7 <- rollingfull7 |>
+  group_by(Item, Type, Market) |>
+  summarise(
+    RMSE = sqrt(mean((prediction - Price_interp)^2, na.rm = TRUE)),
+    
+    MAE = mean(abs(prediction - Price_interp), na.rm = TRUE),
+    
+    MPE = mean((prediction - Price_interp) / Price_interp * 100, na.rm = TRUE),
+    
+    MAPE = mean(abs((prediction - Price_interp) / Price_interp) * 100, na.rm = TRUE),
+    
+    MASE = NA_real_   # needs in-sample MAE for scaling
+  )
+
+write_csv(accuracy_rf7, "rollinforecaserrors/accuracy_rf7.csv")
+
+rollingfull14 <- rollingfull |>
+  filter(Date < "2026-01-15")
+
+accuracy_rf14 <- rollingfull14 |>
+  group_by(Item, Type, Market) |>
+  summarise(
+    RMSE = sqrt(mean((prediction - Price_interp)^2, na.rm = TRUE)),
+    
+    MAE = mean(abs(prediction - Price_interp), na.rm = TRUE),
+    
+    MPE = mean((prediction - Price_interp) / Price_interp * 100, na.rm = TRUE),
+    
+    MAPE = mean(abs((prediction - Price_interp) / Price_interp) * 100, na.rm = TRUE),
+    
+    MASE = NA_real_   # needs in-sample MAE for scaling
+  )
+
+write_csv(accuracy_rf14, "rollinforecaserrors/accuracy_rf14.csv")
+
+
+
+rollingfull21 <- rollingfull |>
+  filter(Date < "2026-01-22")
+
+accuracy_rf21 <- rollingfull21 |>
+  group_by(Item, Type, Market) |>
+  summarise(
+    RMSE = sqrt(mean((prediction - Price_interp)^2, na.rm = TRUE)),
+    
+    MAE = mean(abs(prediction - Price_interp), na.rm = TRUE),
+    
+    MPE = mean((prediction - Price_interp) / Price_interp * 100, na.rm = TRUE),
+    
+    MAPE = mean(abs((prediction - Price_interp) / Price_interp) * 100, na.rm = TRUE),
+    
+    MASE = NA_real_   # needs in-sample MAE for scaling
+  )
+
+write_csv(accuracy_rf21, "rollinforecaserrors/accuracy_rf21.csv")
+
+rollingfull28 <- rollingfull |>
+  filter(Date < "2026-01-29")
+
+accuracy_rf28 <- rollingfull28 |>
+  group_by(Item, Type, Market) |>
+  summarise(
+    RMSE = sqrt(mean((prediction - Price_interp)^2, na.rm = TRUE)),
+    
+    MAE = mean(abs(prediction - Price_interp), na.rm = TRUE),
+    
+    MPE = mean((prediction - Price_interp) / Price_interp * 100, na.rm = TRUE),
+    
+    MAPE = mean(abs((prediction - Price_interp) / Price_interp) * 100, na.rm = TRUE),
+    
+    MASE = NA_real_   # needs in-sample MAE for scaling
+  )
+
+write_csv(accuracy_rf28, "rollinforecaserrors/accuracy_rf28.csv")
