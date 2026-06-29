@@ -537,6 +537,48 @@ p1
     - Is there a short-term spike during the Sinhala and Tamil New Year?
 
     - What is the price impact during a sudden supply shortage?
+    
+# Global View
+
+# Time Series Features
+
+- **Cognostics**: **Co**mputer-aided dia**gnostics** (John W. Tukey, 1985)
+
+- Characteristics of time series
+
+- Summary measures of time series
+
+
+**Basic Principle**
+
+- Transform a given time series $y=\{y_1, y_2, \cdots, y_n\}$ into a feature vector $F = (f_1(y), f_2(y), \cdots, f_p(y))'$. 
+
+#
+
+## Time Series Features
+
+**strength of the trend** 
+
+$$ F_T = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(T_t + R_t)} \right)$$
+
+
+
+**strength of seasonality** 
+
+
+$$F_S = \max \left(0,\; 1 - \frac{\operatorname{Var}(R_t)}{\operatorname{Var}(S_t + R_t)} \right)$$
+
+$\operatorname{Var}(R_t)$ - variance of the remainder component
+
+$\operatorname{Var}(T_t + R_t)$ - variance after removing the seasonal component
+
+$\operatorname{Var}(S_t + R_t)$ - variance of the detrended series
+
+# 
+
+![](f1.png)
+
+
 
 #
 
