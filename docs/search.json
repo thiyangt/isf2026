@@ -109,7 +109,7 @@
     "href": "index.html#feature-engineering-for-raf-rf",
     "title": "Retrieval-Augmented Feature-based Random Forest for Vegetable Price Forecasting",
     "section": "Feature Engineering for RAF-RF",
-    "text": "Feature Engineering for RAF-RF\n# install.packages(\"pak\")\npak::pak(\"thiyangt/vegcast\")\nlibrary(vegcast)"
+    "text": "Feature Engineering for RAF-RF"
   },
   {
     "objectID": "index.html#retail-dambulla-mape",

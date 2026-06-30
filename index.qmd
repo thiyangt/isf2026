@@ -883,13 +883,39 @@ A single model for forecasting all series offers several advantages:
 
 - By doing so, we aim to signal to the model that recent observations carry more importance.
 
-## Feature Engineering for RAF-RF
 
-``` r
-# install.packages("pak")
+#
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+### R Package for Feature Engineering
+
+![](hex.png)
+
+:::
+
+::: {.column width="50%"}
+
+
+```r
 pak::pak("thiyangt/vegcast")
-library(vegcast)
 ```
+
+```{r}
+#| echo: true
+library(vegcast)
+data("veg_sample")
+time_features(veg_sample)
+```
+
+
+:::
+
+::::
+
 
 # Forecast Accuracy 
 
