@@ -589,6 +589,7 @@ $\operatorname{Var}(S_t + R_t)$ - variance of the detrended series
 
 ![](f1.png)
 
+
 #
 
 ![](f2.png)
@@ -1194,6 +1195,15 @@ p4 <- ggplot(features_train_pca, aes(x = PC1, y = PC2, color = Model)) +
 
 p4
 
+```
+
+#
+
+
+```{r}
+#| fig.width: 12
+#| fig.height: 6
+p1
 ```
 
 ## Variable Importance (Top 30)
