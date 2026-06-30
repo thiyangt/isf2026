@@ -588,7 +588,9 @@ $\operatorname{Var}(S_t + R_t)$ - variance of the detrended series
 # 
 
 ![](f1.png)
+#
 
+![](f2.png)
 
 
 #
