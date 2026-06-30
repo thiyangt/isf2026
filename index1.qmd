@@ -576,7 +576,8 @@ p2 <- ggplot(features_train_pca, aes(x = PC1, y = PC2, color = factor(Market))) 
 
 p1|p2
 ```
-#
+
+
 
 **Visualize Feature-space by Vegetable Type**
 
