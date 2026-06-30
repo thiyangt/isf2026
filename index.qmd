@@ -507,6 +507,15 @@ p1 <-vegetables.srilanka |>
 p1
 ```
 
+#
+
+```{r}
+#| fig.width: 20
+#| fig.height: 15
+library(plotly)
+ggplotly(p1)
+```
+
 ##  Global View
 
 - Global view focuses on the overall pattern or summary of the data.
@@ -790,6 +799,10 @@ ggplot(p1, aes(Week, Wday)) +
 ## Local View of Data
 
 [https://thiyangt.github.io/vegetableBook/](https://thiyangt.github.io/vegetableBook/)
+
+#
+
+![](mov.mov)
 
 #
 ## Benchmark Approaches
@@ -1236,20 +1249,29 @@ ggplot(top20, aes(x = reorder(Variable, Importance), y = Importance)) +
        y = "Importance")
 ```
 
-# Discussion and Conclusions
+# Final Insights
 
-- The proposed method performs well for all series except two.
-
-- The most important features are the first lag and summary statistics computed from the 30-lag window.
-
- - Qualitative variables are the least important in the global variable importance ranking.
+ - The proposed method performs well for most series, with only two exceptions.
+ 
+ - The most important predictors are the early lag features and summary statistics from the 30-lag window.
+ 
+- Qualitative variables contribute least in the global variable importance ranking.
  
 - Future direction: Explore local interpretability methods to better understand individual predictions and model behavior at the observation level.
 
-# Contact
+
+# Acknowledgement
+
+This research was supported by the International Institute of Forecasters (IIF) through the Forecasting for Social Good (F4SG) Research Grant.
+
+# 
+
+**Slides and Codes**
 
 Slides: https://thiyangt.github.io/isf2026/#/title-slide
 
 Codes to reproduce results: https://github.com/thiyangt/vegforecastISF2026
+
+**Contact**
 
 Email: ttalagala@sjp.ac.lk
