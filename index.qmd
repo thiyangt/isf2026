@@ -16,6 +16,8 @@ author:
 subtitle: "International Symposium on Forecasting - 2026, Montreal, Canada"
 ---
 
+# {background-image="map2.png" background-size="cover"}
+
 #
 
 ```{r}
