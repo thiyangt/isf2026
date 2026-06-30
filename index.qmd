@@ -1199,10 +1199,38 @@ p4
 
 #
 
-
 ```{r}
 #| fig.width: 12
 #| fig.height: 6
+library(ggplot2)
+library(dplyr)
+
+p1 <-vegetables.srilanka |>
+  mutate(
+    Series = paste(Market, Type, sep = " - ")
+  ) |>
+  ggplot(
+    aes(
+      x = Date,
+      y = Price,
+      colour = Series,
+      group = Series
+    )
+  ) +
+  geom_line(linewidth = 0.5, alpha = 0.8) +
+  facet_wrap(~Item, scales = "free_y") +
+  labs(
+    x = NULL,
+    y = "Price (LKR/kg)",
+    colour = NULL,
+    title = "Vegetable Prices by Market and Type"
+  ) +
+  scale_color_brewer(palette = "Dark2") +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(face = "bold")
+  )
 p1
 ```
 
